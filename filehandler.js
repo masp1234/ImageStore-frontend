@@ -2,11 +2,18 @@
 // skal selvfølgelig laves anderledes
 const userId = 1;
 
-let imageURLString = "";
+fileUploadButton = document.getElementById('file-upload-form');
 
-
+fileUploadButton.addEventListener('submit', (e) => {
+    e.preventDefault();
+    imageUrls.forEach(imageUrl => {
+        postFile(imageUrl);
+    })
+} )
 
 const inputFiles = document.querySelector('input[type="file"]');
+
+imageUrls = [];
 inputFiles.addEventListener('change', (e) => {
     console.log(inputFiles.files);
     const reader = new FileReader();
@@ -14,9 +21,13 @@ inputFiles.addEventListener('change', (e) => {
         console.log(reader.result);
         imageURLString = reader.result.replace("data:", "")
                                         .replace(/^.+,/, "");
-            const image = new Image();
-            image.setAttribute('src', "data:image/jpg;base64," + imageURLString);
-            document.body.appendChild(image);
+
+
+        // lav om til preview image
+        imageUrls.push(imageURLString)
+        const image = new Image();
+        image.setAttribute('src', "data:image/jpg;base64," + imageURLString);
+        document.body.appendChild(image);
             
     }
     reader.readAsDataURL(inputFiles.files[0]);
@@ -25,18 +36,35 @@ inputFiles.addEventListener('change', (e) => {
 
 }, false)
 
-   
 
-const postFile = async file => {
-    const formData = new FormData();
-    formData.append('image', file);
-    console.log(formData);
+
+const postDataByUrl = async (url, settings) => {
+    const response = await fetch(url, settings)
+    const data = await response.json()
+    return data;
+}
+
+const postFile = async imageUrl => {
+    console.log(JSON.stringify(imageUrl))
     
-
-    await fetch('http://localhost:8080/image/add/' + userId, {
+    
+    await fetch('http://localhost:8080/image/add/' + userId, 
+    {
         method: "POST",
-        body: formData
-    })
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: {
+            filename: JSON.stringify("dsfdsf"),
+            originalByteSize: JSON.parse(200),
+            currentBiteSize: JSON.parse(350),
+            title: JSON.stringify("title here"),
+            description: JSON.stringify("description here"),
+            image: JSON.stringify(imageUrl)
+
+        }
+    }
+    )
 }
 
 
