@@ -2,16 +2,18 @@
 // skal selvfølgelig laves anderledes
 const userId = 1;
 
-fileUploadButton = document.getElementById('file-upload-form');
 
-fileUploadButton.addEventListener('submit', (e) => {
-    e.preventDefault();
-    imageUrls.forEach(imageUrl => {
-        postFile(imageUrl);
-    })
-} )
 
 const inputFiles = document.querySelector('input[type="file"]');
+
+const fileUploadButton = document.getElementById('file-upload-form');
+
+    fileUploadButton.addEventListener('submit', (e) => {
+        e.preventDefault();
+        imageUrls.forEach(imageUrl => {
+            postFile(imageUrl);
+        })
+    } )
 
 imageUrls = [];
 
@@ -19,49 +21,47 @@ inputFiles.addEventListener('change', (e) => {
     console.log(inputFiles.files);
     const reader = new FileReader();
     
-    reader.readAsDataURL(inputFiles.files[0]);
+    
 
     reader.onload = () => {
         console.log(reader.result);
-        imageURLString = reader.result.replace("data:", "")
-                                        .replace(/^.+,/, "");
-
-
+        // lad være med at fjerne data... osv uden grund
+        /* imageURLString = reader.result.replace("data:", "")
+                                        .replace(/^.+,/, ""); */
         // lav om til preview image
         
-        imageUrls.push(imageURLString)
+        imageUrls.push(reader.result)
         const image = new Image();
-        image.setAttribute('src', "data:image/jpg;base64," + imageURLString);
+        image.setAttribute('src', reader.result);
         document.body.appendChild(image);
             
     }
+    reader.readAsDataURL(inputFiles.files[0]);
     
-    
-
 }, false)
-
-
-
-const postDataByUrl = async (url, settings) => {
-    const response = await fetch(url, settings)
-    const data = await response.json()
-    return data;
-}
 
 const postFile = async imageUrl => {
 
-    const fileData = `{
-            "filename": ${JSON.stringify("dsfdsf")},
-            "originalByteSize": ${JSON.parse(200)},
-            "currentBiteSize": ${JSON.parse(350)},
-            "title": ${JSON.stringify("title here")},
-            "description": ${JSON.stringify("description here")},
-            "image": ${JSON.stringify(imageUrl)}
-    }`;
-    console.log(JSON.stringify(imageUrl))
+    const filebody = {
+            filename: "dsfdsf",
+            originalByteSize: 200,
+            currentBiteSize: 350,
+            title: "title here",
+            description: "description here",
+            image: imageUrl
+    };
+
+    const fileData = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        
+        },
+        body: JSON.stringify(filebody)
+      };
     
     
-    postDataByUrl('http://localhost:8080/image/add/' + userId, fileData);
+    fetchData(`http://localhost:8080/image/add/${userId}`, fileData);
 }
 
 
