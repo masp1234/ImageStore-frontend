@@ -6,7 +6,6 @@ const renderImages = async () => {
 
     getImages().then(data => {
         
-        
         data.forEach(image => {
             imageContainer.innerHTML += `  
                 <div class="imageElement">
@@ -17,6 +16,7 @@ const renderImages = async () => {
                         <p>${image.filename}</p>
                         <p>${image.timeStamp}</p>
                         <p>${image.originalByteSize}</p>
+                        <p>${image.title}</p>
                         <p>${image.description}</p>
                     </div>
                 </div>

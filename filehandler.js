@@ -2,59 +2,57 @@
 // skal selvfølgelig laves anderledes
 const userId = 1;
 
-
-
 const inputFiles = document.querySelector('input[type="file"]');
 const fileUploadButton = document.getElementById('file-upload-form');
 const previewContainer = document.getElementById('preview-container');
+const inputFileTitle = document.getElementById('file-title');
+const inputFileDescription = document.getElementById('file-description');
 
     fileUploadButton.addEventListener('submit', (e) => {
         e.preventDefault();
-        imageUrls.forEach(imageUrl => {
-            postFile(imageUrl);
-        })
-        inputFiles.value = "";
-        imageUrls = []
-        previewContainer.innerHTML = "";
-    
+
+        const imageFile = {
+            filename: file.name,
+            originalByteSize: file.size,
+            currentByteSize: 200,
+            title: inputFileTitle.value,
+            description: inputFileDescription.value,
+            image: imageUrl
+        }
         
+        postFile(imageFile);
+        
+        inputFiles.value = "";
+        imageUrl = ""
+        previewContainer.innerHTML = "";
     } )
 
-imageUrls = [];
+let imageUrl = "";
+let file = null;
 
 inputFiles.addEventListener('change', (e) => {
-    console.log(inputFiles.files);
     const reader = new FileReader();
     
+    file = inputFiles.files[0];
+    console.log(file);
     
 
     reader.onload = () => {
-        console.log(reader.result);
-        // lad være med at fjerne data... osv uden grund
-        /* imageURLString = reader.result.replace("data:", "")
-                                        .replace(/^.+,/, ""); */
-        // lav om til preview image
-        
-        imageUrls.push(reader.result)
-        const image = document.createElement('img');
-        image.setAttribute('src', reader.result);
-        previewContainer.appendChild(image);
-            
+       
+        imageUrl = reader.result;
+        previewImage(imageUrl);        
     }
-    reader.readAsDataURL(inputFiles.files[0]);
+    reader.readAsDataURL(file);
     
 }, false)
 
-const postFile = async imageUrl => {
+const previewImage = imageUrl => {
+    const image = document.createElement('img');
+        image.setAttribute('src', imageUrl);
+        previewContainer.appendChild(image); 
+}
 
-    const filebody = {
-            filename: "dsfdsf",
-            originalByteSize: 200,
-            currentBiteSize: 350,
-            title: "title here",
-            description: "description here",
-            image: imageUrl
-    };
+const postFile = async file => {
 
     const fileData = {
         method: 'POST',
@@ -62,9 +60,8 @@ const postFile = async imageUrl => {
           'Content-Type': 'application/json'
         
         },
-        body: JSON.stringify(filebody)
+        body: JSON.stringify(file)
       };
-    
     
     await fetchData(`http://localhost:8080/image/add/${userId}`, fileData);
     renderImages();
