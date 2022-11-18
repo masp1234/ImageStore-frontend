@@ -46,11 +46,7 @@ inputFiles.addEventListener('change', (e) => {
     
 }, false)
 
-const previewImage = imageUrl => {
-    const image = document.createElement('img');
-        image.setAttribute('src', imageUrl);
-        previewContainer.appendChild(image); 
-}
+
 
 const postFile = async file => {
 
@@ -64,7 +60,7 @@ const postFile = async file => {
       };
     
     await fetchData(`http://localhost:8080/image/add/${userId}`, fileData);
-    renderImages();
+    home();
 }
 
 

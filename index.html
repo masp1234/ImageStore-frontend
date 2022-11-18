@@ -5,24 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="image-container.css">
+    <link rel="stylesheet" href="navbar.css">
     <title>Document</title>
 </head>
 <body>
 
     <div id="nav">
         <!--Husk # først i endpointet, ellers virker det ikke. Ved ikke hvorfor.-->
-        <a id="homeButton" href="/">Home</a>
-        <a id="aboutButton" href="#/about">About</a>
-        <a id="adminButton" href="#/admin">Admin</a>
+        <a id="homeButton" class="nav-item" href="/">Home</a>
+        <a id="aboutButton" class="nav-item" href="#/about">About</a>
+        <a id="adminButton" class="nav-item" href="#/admin">Admin</a>
     </div>
 
-    <form id="file-upload-form">
-        <input type="file" id="file" accept=".jpg, .png" multiple>
-        <input type="text" id="file-title">
-        <input type="text" id="file-description">
-
-        <button type="submit">Click here to submit</button>
-    </form>
+    
 
     <div id="preview-container">
 
@@ -36,7 +31,7 @@
 
     
     <template id="home">
-
+        <div id="image-container"></div>
 
 
     </template>
@@ -47,7 +42,13 @@
 
     </template>
     <template id="admin">
-
+        <form id="file-upload-form">
+            <input type="file" id="file" accept=".jpg, .png" multiple>
+            <input type="text" id="file-title">
+            <input type="text" id="file-description">
+    
+            <button type="submit">Click here to submit</button>
+        </form>
         
 
     </template>

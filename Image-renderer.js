@@ -1,13 +1,10 @@
 
 
-const renderImages = async () => {
-    const imageContainer = document.getElementById('image-container')
-    imageContainer.innerHTML = "";
-
+const renderImages = async container => {
     getImages().then(data => {
         
         data.forEach(image => {
-            imageContainer.innerHTML += `  
+            container.innerHTML += `  
                 <div class="imageElement">
                     <div class="image-inner-container">
                         <img src=${image.image} alt="image not found" width=200>
@@ -22,14 +19,18 @@ const renderImages = async () => {
                 </div>
             ` 
         });
-        appDiv.appendChild(imageContainer)
-        console.log(data)
+        
     })
 }
 
-async function getImages(){
+const getImages = () => {
     const fileData = {
         method: 'GET'
     }
     return fetchData("http://localhost:8080/image/all", fileData)
+}
+const previewImage = imageUrl => {
+    const image = document.createElement('img');
+        image.setAttribute('src', imageUrl);
+        previewContainer.appendChild(image); 
 }
