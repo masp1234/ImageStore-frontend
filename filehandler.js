@@ -5,14 +5,19 @@ const userId = 1;
 
 
 const inputFiles = document.querySelector('input[type="file"]');
-
 const fileUploadButton = document.getElementById('file-upload-form');
+const previewContainer = document.getElementById('preview-container');
 
     fileUploadButton.addEventListener('submit', (e) => {
         e.preventDefault();
         imageUrls.forEach(imageUrl => {
             postFile(imageUrl);
         })
+        inputFiles.value = "";
+        imageUrls = []
+        previewContainer.innerHTML = "";
+    
+        
     } )
 
 imageUrls = [];
@@ -31,9 +36,9 @@ inputFiles.addEventListener('change', (e) => {
         // lav om til preview image
         
         imageUrls.push(reader.result)
-        const image = new Image();
+        const image = document.createElement('img');
         image.setAttribute('src', reader.result);
-        document.body.appendChild(image);
+        previewContainer.appendChild(image);
             
     }
     reader.readAsDataURL(inputFiles.files[0]);
@@ -61,7 +66,8 @@ const postFile = async imageUrl => {
       };
     
     
-    fetchData(`http://localhost:8080/image/add/${userId}`, fileData);
+    await fetchData(`http://localhost:8080/image/add/${userId}`, fileData);
+    renderImages();
 }
 
 

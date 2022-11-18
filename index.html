@@ -9,14 +9,10 @@
 <body>
 
     <div id="nav">
+        <!--Husk # først i endpointet, ellers virker det ikke. Ved ikke hvorfor.-->
         <a id="homeButton" href="/">Home</a>
         <a id="aboutButton" href="#/about">About</a>
         <a id="adminButton" href="#/admin">Admin</a>
-    </div>
-    <div id="container">
-       
-
-
     </div>
 
     <form id="file-upload-form">
@@ -24,6 +20,18 @@
 
         <button type="submit">Click here to submit</button>
     </form>
+
+    <div id="preview-container">
+
+    </div>
+
+    <div id="container">
+       
+
+
+    </div>
+
+    
     <template id="home">
 
 
@@ -44,6 +52,7 @@
         
     
     <script src="router.js"></script>
+    <script src="image-renderer.js"></script>
     <script src="home.js"></script>
     <script src="about.js"></script>
     <script src="admin.js"></script>
