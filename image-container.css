@@ -1,0 +1,21 @@
+.imageElement {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 450px;
+}
+img {
+    width: 250px;
+}
+
+#container {
+    margin: 50px 50px;
+}
+.imageElement {
+    margin-top: 50px;
+}
+
+.image-text-container {
+
+}
