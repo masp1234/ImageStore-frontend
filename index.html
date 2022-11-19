@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="image-container.css">
-    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="/css/image-container.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/file-upload-form.css">
+    <link rel="stylesheet" href="/css/admin-container.css">
+    <link rel="stylesheet" href="/css/app-container.css">
+    <link rel="stylesheet" href="/css/preview-container.css">
     <title>Document</title>
 </head>
 <body>
@@ -19,9 +23,7 @@
 
     
 
-    <div id="preview-container">
-
-    </div>
+    
 
     <div id="container">
        
@@ -42,26 +44,39 @@
 
     </template>
     <template id="admin">
-        <form id="file-upload-form">
-            <input type="file" id="file" accept=".jpg, .png" multiple>
-            <input type="text" id="file-title">
-            <input type="text" id="file-description">
-    
-            <button type="submit">Click here to submit</button>
-        </form>
+        <div id="admin-container">
+            
+            <form id="file-upload-form">
+                <label for="file">Choose a file</label>
+                <input type="file" id="file" class="form-field" accept=".jpg, .png" multiple>
+                
+                <label for="file-title">Title</label>
+                <input type="text" id="file-title" class="form-field">
+                
+                <label for="file-description" >Description</label>
+                <input type="text" id="file-description" class="form-field">
+                
+        
+                <button id="file-upload-form-submit" type="submit">Upload</button>
+            </form>
+
+            <div id="preview-container">
+
+            </div>
+        </div>
         
 
     </template>
    
         
     
-    <script src="router.js"></script>
-    <script src="image-renderer.js"></script>
-    <script src="home.js"></script>
-    <script src="about.js"></script>
-    <script src="admin.js"></script>
-    <script src="fetch.js"></script>
-    <script src="filehandler.js"></script>
+    <script src="/js/router.js"></script>
+    <script src="/js/image-renderer.js"></script>
+    <script src="/js/home.js"></script>
+    <script src="/js/about.js"></script>
+    <script src="/js/admin.js"></script>
+    <script src="/js/fetch.js"></script>
+    <script src="/js/filehandler.js"></script>
     
 </body>
 </html>

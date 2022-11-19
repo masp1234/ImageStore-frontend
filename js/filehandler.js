@@ -1,13 +1,19 @@
 
 // skal selvfølgelig laves anderledes
 const userId = 1;
+let fileUploadButton = null;
+let inputFileTitle = null;
+let inputFileDescription = null;
+let inputFiles = null;
 
-const inputFiles = document.querySelector('input[type="file"]');
-const fileUploadButton = document.getElementById('file-upload-form');
-const previewContainer = document.getElementById('preview-container');
-const inputFileTitle = document.getElementById('file-title');
-const inputFileDescription = document.getElementById('file-description');
 
+
+
+const addEventListenerToFileUploadButton = () => {
+    fileUploadButton = document.getElementById('file-upload-form');
+    inputFileTitle = document.getElementById('file-title');
+    inputFileDescription = document.getElementById('file-description');
+    
     fileUploadButton.addEventListener('submit', (e) => {
         e.preventDefault();
 
@@ -26,25 +32,29 @@ const inputFileDescription = document.getElementById('file-description');
         imageUrl = ""
         previewContainer.innerHTML = "";
     } )
+}
 
 let imageUrl = "";
 let file = null;
 
-inputFiles.addEventListener('change', (e) => {
-    const reader = new FileReader();
+const addEventListenerToInputFiles = () => {
+    inputFiles = document.querySelector('input[type="file"]');
+    inputFiles.addEventListener('change', (e) => {
+        const reader = new FileReader();
+        
+        file = inputFiles.files[0];
+        console.log(file);
+        
     
-    file = inputFiles.files[0];
-    console.log(file);
-    
-
-    reader.onload = () => {
-       
-        imageUrl = reader.result;
-        previewImage(imageUrl);        
-    }
-    reader.readAsDataURL(file);
-    
-}, false)
+        reader.onload = () => {
+           
+            imageUrl = reader.result;
+            previewImage(imageUrl);        
+        }
+        reader.readAsDataURL(file);
+        
+    }, false)
+}
 
 
 
@@ -60,7 +70,6 @@ const postFile = async file => {
       };
     
     await fetchData(`http://localhost:8080/image/add/${userId}`, fileData);
-    home();
 }
 
 

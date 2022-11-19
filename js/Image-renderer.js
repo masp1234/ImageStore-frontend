@@ -1,4 +1,4 @@
-
+let previewContainer = null;
 
 const renderImages = async container => {
     getImages().then(data => {
@@ -30,7 +30,8 @@ const getImages = () => {
     return fetchData("http://localhost:8080/image/all", fileData)
 }
 const previewImage = imageUrl => {
+    previewContainer = document.getElementById('preview-container');
     const image = document.createElement('img');
         image.setAttribute('src', imageUrl);
-        previewContainer.appendChild(image); 
+        previewContainer.replaceChildren(image);
 }
