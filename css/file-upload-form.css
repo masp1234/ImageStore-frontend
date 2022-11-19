@@ -4,13 +4,11 @@
     width: 400px;
 }
 
-#file-description {
-    height: 100px;
-}
-
 .form-field {
     margin-bottom: 20px;
     margin-top: 5px;
+    padding: 5px;
+    
     
 }
 

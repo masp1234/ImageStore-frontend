@@ -5,8 +5,8 @@ let fileUploadButton = null;
 let inputFileTitle = null;
 let inputFileDescription = null;
 let inputFiles = null;
-
-
+let imageUrl = "";
+let file = null;
 
 
 const addEventListenerToFileUploadButton = () => {
@@ -34,9 +34,6 @@ const addEventListenerToFileUploadButton = () => {
     } )
 }
 
-let imageUrl = "";
-let file = null;
-
 const addEventListenerToInputFiles = () => {
     inputFiles = document.querySelector('input[type="file"]');
     inputFiles.addEventListener('change', (e) => {
@@ -55,8 +52,6 @@ const addEventListenerToInputFiles = () => {
         
     }, false)
 }
-
-
 
 const postFile = async file => {
 

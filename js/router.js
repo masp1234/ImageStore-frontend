@@ -47,6 +47,7 @@ function router(evt) {
     let url = window.location.hash.slice(1) || '/';
     let route = resolveRoute(url);
 
+    // kører den metode den lige har fået gemt ovenover, som f.eks. vil være () => { home();} i starten 
     route();
 }
 

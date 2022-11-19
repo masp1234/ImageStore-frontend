@@ -31,7 +31,6 @@ const getImages = () => {
 }
 const previewImage = imageUrl => {
     previewContainer = document.getElementById('preview-container');
-    const image = document.createElement('img');
-        image.setAttribute('src', imageUrl);
-        previewContainer.replaceChildren(image);
+    previewContainer.innerHTML = `<img src=${imageUrl} alt="image not found" width=400>`
+   
 }
